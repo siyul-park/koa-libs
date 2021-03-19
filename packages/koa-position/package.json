@@ -1,10 +1,14 @@
 {
   "name": "koa-position",
-  "version": "1.0.0",
+  "version": "1.1.6",
   "description": "",
+  "license": "ISC",
+  "author": "",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
+    "build:prd": "cross-env NODE_ENV=production npm run build",
     "build": "npm run clean && npm run compile",
     "clean": "rm -rf ./dist",
     "compile": "gulp",
@@ -12,7 +16,14 @@
     "lint:fix": "eslint --fix .",
     "prepublishOnly": "npm run build:prd"
   },
-  "author": "",
-  "license": "ISC",
-  "types": "dist/index.d.ts"
+  "devDependencies": {
+    "@types/cookies": "^0.7.6",
+    "@types/koa": "^2.11.6",
+    "cookies": "^0.8.0",
+    "koa": "^2.13.1"
+  },
+  "peerDependencies": {
+    "cookies": "0.8.x",
+    "koa": "2.x"
+  }
 }
