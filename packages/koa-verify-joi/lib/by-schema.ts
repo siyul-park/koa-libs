@@ -6,9 +6,9 @@ function bySchema<P = any>(schema: Schema): (value: P) => Promise<void> {
     try {
       await schema.validateAsync(value);
     } catch (e) {
-      throw new BadRequest(e.message)
+      throw new BadRequest(e.message);
     }
-  }
+  };
 }
 
 export default bySchema;
