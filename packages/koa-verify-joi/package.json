@@ -19,8 +19,7 @@
     "http-errors": "^1.8.0"
   },
   "devDependencies": {
-    "joi": "^17.4.0",
-    "koa-verify": "^1.0.0"
+    "joi": "^17.4.0"
   },
   "peerDependencies": {
     "joi": "^17.x",
