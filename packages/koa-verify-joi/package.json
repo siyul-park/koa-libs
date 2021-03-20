@@ -14,5 +14,16 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prepublishOnly": "npm run build:prd"
+  },
+  "dependencies": {
+    "http-errors": "^1.8.0"
+  },
+  "devDependencies": {
+    "joi": "^17.4.0",
+    "koa-verify": "^1.0.0"
+  },
+  "peerDependencies": {
+    "joi": "^17.x",
+    "koa-verify": "^1.x"
   }
 }
