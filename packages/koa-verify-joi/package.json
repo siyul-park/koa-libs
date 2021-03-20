@@ -1,0 +1,28 @@
+{
+  "name": "koa-verify-joi",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist",
+    "compile": "gulp",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "prepublishOnly": "npm run build:prd"
+  },
+  "dependencies": {
+    "http-errors": "^1.8.0"
+  },
+  "devDependencies": {
+    "joi": "^17.4.0"
+  },
+  "peerDependencies": {
+    "joi": "^17.x",
+    "koa-verify": "^1.x"
+  }
+}
