@@ -1,28 +1,31 @@
-/* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
-
 import { DeepPartial } from "@course-design/types";
 
 function pick<T>(value: T, keys: string[]): DeepPartial<T> {
   const result = {};
+
   keys.forEach((key) => {
-    const tokens = key.split(".");
+    const paths = key.split(".");
 
-    let currentValue: any = value;
-    let currentResult: any = result;
-    tokens.forEach((token, index) => {
-      if (currentValue == null) return;
-      currentValue = currentValue[token];
+    let currentInput: unknown = value;
+    let currentResult: Record<string, unknown> = result;
+    // eslint-disable-next-line no-restricted-syntax
+    for (const [i, path] of paths.entries()) {
+      if (
+        typeof currentInput !== "object" ||
+        currentInput == null ||
+        !(path in currentInput)
+      )
+        break;
+      currentInput = (currentInput as Record<string, unknown>)[path];
 
-      if (index === tokens.length - 1) {
-        currentResult[token] = currentValue;
-      } else if (Array.isArray(currentValue)) {
-        currentResult[token] = [];
-      } else if (typeof currentValue === "object") {
-        currentResult[token] = {};
+      if (i === paths.length - 1) {
+        currentResult[path] = currentInput;
+      } else if (currentResult[path] == null) {
+        currentResult[path] = Array.isArray(currentInput) ? [] : {};
       }
 
-      currentResult = currentResult[token];
-    });
+      currentResult = currentResult[path] as Record<string, unknown>;
+    }
   });
 
   return result;
