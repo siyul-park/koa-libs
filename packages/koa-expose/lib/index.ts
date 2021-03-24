@@ -1,2 +1,2 @@
 export { default as pick } from "./pick";
-export { default } from "./expose";
+export { default, ExposeOptions } from "./expose";
