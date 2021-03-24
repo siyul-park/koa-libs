@@ -14,5 +14,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prepublishOnly": "npm run build:prd"
+  },
+  "dependencies": {
+    "@course-design/types": "^1.0.3"
   }
 }
