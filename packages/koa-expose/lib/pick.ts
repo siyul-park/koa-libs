@@ -2,10 +2,7 @@
 
 import { DeepPartial } from "@course-design/types";
 
-function pick<T extends object = any>(
-  value: T,
-  keys: string[]
-): DeepPartial<T> {
+function pick<T>(value: T, keys: string[]): DeepPartial<T> {
   const result = {};
   keys.forEach((key) => {
     const tokens = key.split(".");
@@ -18,7 +15,7 @@ function pick<T extends object = any>(
 
       if (index === tokens.length - 1) {
         currentResult[token] = currentValue;
-      } else if (currentValue instanceof Array) {
+      } else if (Array.isArray(currentValue)) {
         currentResult[token] = [];
       } else if (typeof currentValue === "object") {
         currentResult[token] = {};
