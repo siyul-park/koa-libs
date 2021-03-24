@@ -1,8 +1,10 @@
 import Application from "koa";
-import { Extractor } from "koa-position";
+import { Extractor, response } from "koa-position";
 import { DeepPartial } from "@course-design/types";
 
 import defaultPick from "./pick";
+
+const bodyPosition = response("body");
 
 function expose<T>(
   extractor: Extractor,
@@ -15,7 +17,7 @@ function expose<T>(
     const field = await extractor.extract(context);
     const fields = Array.isArray(field) ? field : [field];
 
-    const originBody = context.response.body;
+    const originBody = await bodyPosition.extract(context);
     let result: unknown = context.response.body;
     if (originBody != null) {
       if (Array.isArray(originBody)) {
@@ -26,9 +28,7 @@ function expose<T>(
         result = await pick(originBody as T, fields);
       }
     }
-    if (originBody !== result) {
-      context.response.body = originBody;
-    }
+    await bodyPosition.inject(context, result);
 
     await next();
   };
