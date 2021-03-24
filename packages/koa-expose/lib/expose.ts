@@ -35,6 +35,7 @@ function expose<T>(
           result = await finalPick(originBody as T, fields);
         }
       }
+
       await bodyPosition.inject(context, result);
     }
 
