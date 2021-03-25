@@ -1,6 +1,6 @@
 {
   "name": "koa-expose",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "",
   "license": "ISC",
   "author": "",
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@types/koa": "^2.13.1",
-    "koa-position": "^1.1.6"
+    "koa-position": "^1.1.7"
   },
   "peerDependencies": {
     "koa": "^2.13.x",
