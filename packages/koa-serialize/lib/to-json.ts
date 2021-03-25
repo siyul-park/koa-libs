@@ -6,8 +6,7 @@ import { Serializable } from "jsonlike";
  */
 function toJSON<T>(
   target: T,
-  replacer?: (key: string, value: unknown) => unknown,
-  isInArray = false
+  replacer?: (key: string, value: unknown) => unknown
 ): Json {
   if (typeof (target as Partial<Serializable>)?.toJSON === "function") {
     return ((target as unknown) as Serializable).toJSON();
@@ -21,7 +20,7 @@ function toJSON<T>(
     case "undefined":
     case "symbol":
     case "function":
-      return isInArray ? null : undefined;
+      return undefined;
     case "bigint":
       throw new TypeError("Do not know how to serialize a BigInt");
     case "object":
@@ -29,7 +28,7 @@ function toJSON<T>(
         return null;
       }
       if (Array.isArray(target)) {
-        return target.map((element) => toJSON(element, replacer, true));
+        return target.map((element) => toJSON(element, replacer) ?? null);
       }
 
       // eslint-disable-next-line no-case-declarations
