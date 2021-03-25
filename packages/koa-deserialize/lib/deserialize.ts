@@ -8,11 +8,11 @@ function deserialize<T>(
   convert: (value: Json) => T | Promise<T>
 ): Application.Middleware {
   return async (context, next) => {
-    const value = await position.extract(context);
+    const value = (await position.extract(context)) as Json;
 
     let parsed: T;
     try {
-      parsed = await convert(value as Json);
+      parsed = await convert(value);
     } catch (e) {
       if (typeof e.status === "number" || typeof e.statusCode === "number") {
         throw e;
