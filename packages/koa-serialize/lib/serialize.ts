@@ -6,13 +6,17 @@ import toJSON from "./to-json";
 
 export type SerializeOptions = {
   serialize?: (value: unknown) => Json;
+  replacer?: (key: string, value: unknown) => unknown;
 };
 
 function serialize(
   position: Position,
   options?: SerializeOptions
 ): Application.Middleware {
-  const finalSerialize = options?.serialize ?? toJSON;
+  const finalSerialize =
+    options?.serialize ?? options?.replacer != null
+      ? (value: unknown) => toJSON(value, options?.replacer)
+      : toJSON;
 
   return async (context, next) => {
     const value = await position.extract(context);
