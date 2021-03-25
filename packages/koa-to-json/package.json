@@ -14,5 +14,18 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prepublishOnly": "npm run build:prd"
+  },
+  "dependencies": {
+    "@course-design/types": "^1.0.3",
+    "jsonlike": "^1.0.0",
+    "is-plain-obj": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.13.1",
+    "koa-position": "^1.1.6"
+  },
+  "peerDependencies": {
+    "koa": "^2.13.x",
+    "koa-position": "1.x"
   }
 }
