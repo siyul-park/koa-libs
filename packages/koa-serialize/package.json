@@ -1,6 +1,6 @@
 {
   "name": "koa-serialize",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "description": "",
   "license": "ISC",
   "author": "",
@@ -18,12 +18,11 @@
   },
   "dependencies": {
     "@course-design/types": "^1.0.3",
-    "jsonlike": "^1.0.0",
-    "is-plain-obj": "^3.0.0"
+    "jsonlike": "^1.0.0"
   },
   "devDependencies": {
     "@types/koa": "^2.13.1",
-    "koa-position": "^1.1.6"
+    "koa-position": "^1.1.7"
   },
   "peerDependencies": {
     "koa": "^2.13.x",
