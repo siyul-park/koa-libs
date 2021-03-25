@@ -14,6 +14,9 @@ function deserialize<T>(
     try {
       parsed = await convert(value as Json);
     } catch (e) {
+      if (typeof e.status === "number" || typeof e.statusCode === "number") {
+        throw e;
+      }
       throw new BadRequest(e.message);
     }
 
