@@ -4,7 +4,7 @@ import { Serializable } from "jsonlike";
 /*
  https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify 참고
  */
-function jsonlize<T>(target: T, isInArray = false): Json {
+function toJSON<T>(target: T, isInArray = false): Json {
   if (typeof (target as Partial<Serializable>)?.toJSON === "function") {
     return ((target as unknown) as Serializable).toJSON();
   }
@@ -25,13 +25,13 @@ function jsonlize<T>(target: T, isInArray = false): Json {
         return null;
       }
       if (Array.isArray(target)) {
-        return target.map((element) => jsonlize(element, true));
+        return target.map((element) => toJSON(element, true));
       }
       // eslint-disable-next-line no-case-declarations
       const result: Json = {};
       // eslint-disable-next-line no-restricted-syntax
       for (const [key, value] of Object.entries(target)) {
-        const parsed = jsonlize(value);
+        const parsed = toJSON(value);
         if (parsed !== undefined) {
           result[key] = parsed;
         }
@@ -42,4 +42,4 @@ function jsonlize<T>(target: T, isInArray = false): Json {
   }
 }
 
-export default jsonlize;
+export default toJSON;

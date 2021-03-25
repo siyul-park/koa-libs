@@ -1,15 +1,15 @@
 import Application from "koa";
 import { Position } from "koa-position";
 
-import jsonlize from "./jsonlize";
+import toJSON from "./to-json";
 
-function toJSON(position: Position): Application.Middleware {
+function serialize(position: Position): Application.Middleware {
   return async (context, next) => {
     const value = await position.extract(context);
-    await position.inject(context, jsonlize(value));
+    await position.inject(context, toJSON(value));
 
     await next();
   };
 }
 
-export default toJSON;
+export default serialize;
