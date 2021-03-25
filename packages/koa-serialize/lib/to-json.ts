@@ -35,6 +35,9 @@ function toJSON<T>(
       const result: Json = {};
       // eslint-disable-next-line no-restricted-syntax
       for (const [key, value] of Object.entries(target)) {
+        // eslint-disable-next-line no-continue
+        if (typeof key === "symbol") continue;
+
         const parsed = toJSON(
           replacer != null ? replacer(key, value) : value,
           replacer

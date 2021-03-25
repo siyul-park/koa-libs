@@ -7,10 +7,16 @@ test("toJSON", () => {
     "false",
     false,
   ]);
-  expect(toJSON({ x: [10, undefined, function () {}, Symbol("")] })).toEqual({
+  expect(toJSON({ x: [10, undefined, () => {}, Symbol("")] })).toEqual({
     x: [10, null, null, null],
   });
   expect(toJSON(new Date(2006, 0, 2, 15, 4, 5))).toEqual(
     new Date(2006, 0, 2, 15, 4, 5).toJSON()
   );
+
+  expect(
+    toJSON({ a: new Set([1, 2, 3, 4]) }, (key, value) =>
+      value instanceof Set ? [...value] : value
+    )
+  ).toEqual({ a: [1, 2, 3, 4] });
 });
