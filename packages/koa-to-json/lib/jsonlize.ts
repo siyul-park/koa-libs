@@ -5,7 +5,7 @@ import { Serializable } from "jsonlike";
  https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify 참고
  */
 function jsonlize<T>(target: T, isInArray = false): Json {
-  if (typeof (target as Partial<Serializable>).toJSON === "function") {
+  if (typeof (target as Partial<Serializable>)?.toJSON === "function") {
     return ((target as unknown) as Serializable).toJSON();
   }
 
