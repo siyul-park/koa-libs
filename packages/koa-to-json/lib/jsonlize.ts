@@ -19,7 +19,7 @@ function jsonlize<T>(target: T, isInArray = false): Json {
     case "function":
       return isInArray ? null : undefined;
     case "bigint":
-      return target.toString();
+      throw new TypeError("Do not know how to serialize a BigInt");
     case "object":
       if (target == null) {
         return null;
