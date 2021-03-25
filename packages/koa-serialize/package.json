@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "@course-design/types": "^1.0.3",
-    "is-plain-obj": "^3.0.0",
     "jsonlike": "^1.0.0"
   },
   "devDependencies": {
