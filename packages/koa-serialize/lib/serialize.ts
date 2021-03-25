@@ -5,7 +5,7 @@ import { Json } from "@course-design/types";
 import toJSON from "./to-json";
 
 export type SerializeOptions = {
-  serialize: (value: unknown) => Json;
+  serialize?: (value: unknown) => Json;
 };
 
 function serialize(
