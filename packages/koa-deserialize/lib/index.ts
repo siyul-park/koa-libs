@@ -1,2 +1,2 @@
-// eslint-disable-next-line import/prefer-default-export
 export { default as by } from "./by";
+export { default } from "./deserialize";
