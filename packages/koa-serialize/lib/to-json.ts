@@ -1,4 +1,4 @@
-import { Json } from "@course-design/types";
+import { Json, Nullish } from "@course-design/types";
 import { Serializable } from "jsonlike";
 
 /*
@@ -8,7 +8,9 @@ function toJSON<T>(
   target: T,
   replacer?: (key: string, value: unknown) => unknown
 ): Json {
-  if (typeof (target as Partial<Serializable>)?.toJSON === "function") {
+  if (
+    typeof (target as Partial<Serializable> | Nullish)?.toJSON === "function"
+  ) {
     return ((target as unknown) as Serializable).toJSON();
   }
 
