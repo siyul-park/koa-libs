@@ -1,0 +1,32 @@
+{
+  "name": "koa-deserialize",
+  "version": "0.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "build:prd": "cross-env NODE_ENV=production npm run build",
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist",
+    "compile": "gulp",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "prepublishOnly": "npm run build:prd"
+  },
+  "dependencies": {
+    "@course-design/types": "^1.0.3",
+    "http-errors": "^1.8.0",
+    "jsonlike": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.13.1",
+    "koa-position": "^1.1.6"
+  },
+  "peerDependencies": {
+    "koa": "^2.13.x",
+    "koa-position": "1.x"
+  }
+}
