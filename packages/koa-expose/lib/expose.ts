@@ -20,25 +20,23 @@ function expose<T>(
   const finalPick = options?.pick ?? pick;
 
   return async (context, next) => {
-    if (context.type === "application/json") {
-      const field = await extractor.extract(context);
-      if (field != null) {
-        const fields = Array.isArray(field) ? field : [field];
-        const originBody = await bodyPosition.extract(context);
+    const field = await extractor.extract(context);
+    if (field != null) {
+      const fields = Array.isArray(field) ? field : [field];
+      const originBody = await bodyPosition.extract(context);
 
-        let result: unknown = originBody;
-        if (originBody != null) {
-          if (Array.isArray(originBody)) {
-            result = await Promise.all(
-              originBody.map((value) => finalPick(value as T, fields))
-            );
-          } else {
-            result = await finalPick(originBody as T, fields);
-          }
+      let result: unknown = originBody;
+      if (originBody != null) {
+        if (Array.isArray(originBody)) {
+          result = await Promise.all(
+            originBody.map((value) => finalPick(value as T, fields))
+          );
+        } else {
+          result = await finalPick(originBody as T, fields);
         }
-
-        await bodyPosition.inject(context, result);
       }
+
+      await bodyPosition.inject(context, result);
     }
 
     await next();
