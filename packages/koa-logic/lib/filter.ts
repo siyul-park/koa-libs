@@ -2,7 +2,7 @@ import { DefaultContext, DefaultState, Middleware } from "koa";
 import Expression from "./expression";
 
 function filter<StateT = DefaultState, ContextT = DefaultContext>(
-  expression: Expression<StateT, ContextT>,
+  expression: Expression<boolean, StateT, ContextT>,
   middleware: Middleware<StateT, ContextT>
 ): Middleware<StateT, ContextT> {
   return async (context, next) => {
