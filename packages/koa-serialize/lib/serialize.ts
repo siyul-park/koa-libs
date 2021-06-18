@@ -17,12 +17,9 @@ function serialize(
     options?.serialize ?? options?.replacer != null
       ? (value: unknown) => toJSON(value, options?.replacer)
       : toJSON;
-
   return async (context, next) => {
-    if (context.type === "application/json") {
-      const value = await position.extract(context);
-      await position.inject(context, await finalSerialize(value));
-    }
+    const value = await position.extract(context);
+    await position.inject(context, await finalSerialize(value));
 
     await next();
   };
