@@ -19,8 +19,10 @@ function serialize(
       : toJSON;
 
   return async (context, next) => {
-    const value = await position.extract(context);
-    await position.inject(context, await finalSerialize(value));
+    if (context.type === "application/json") {
+      const value = await position.extract(context);
+      await position.inject(context, await finalSerialize(value));
+    }
 
     await next();
   };
