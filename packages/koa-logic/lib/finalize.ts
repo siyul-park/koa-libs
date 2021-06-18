@@ -7,7 +7,7 @@ function finalize<StateT = DefaultState, ContextT = DefaultContext>(
     try {
       await next();
     } finally {
-      middleware(context, async () => {});
+      await middleware(context, async () => {});
     }
   };
 }
