@@ -14,5 +14,11 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prepublishOnly": "cross-env NODE_ENV=production npm run build"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.13.3"
+  },
+  "peerDependencies": {
+    "koa": "^2.13.1"
   }
 }
