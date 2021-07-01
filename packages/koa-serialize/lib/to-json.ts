@@ -4,10 +4,10 @@ import { Serializable } from "jsonlike";
 /*
  https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify 참고
  */
-function toJSON<T>(
+async function toJSON<T>(
   target: T,
-  replacer?: (key: string, value: unknown) => unknown
-): Json {
+  replacer?: (key: string, value: unknown) => unknown | Promise<unknown>
+): Promise<Json> {
   if (
     typeof (target as Partial<Serializable> | Nullish)?.toJSON === "function"
   ) {
@@ -30,22 +30,28 @@ function toJSON<T>(
         return null;
       }
       if (Array.isArray(target)) {
-        return target.map((element) => toJSON(element, replacer) ?? null);
+        return Promise.all(
+          target.map(
+            async (element) => (await toJSON(element, replacer)) ?? null
+          )
+        );
       }
 
       // eslint-disable-next-line no-case-declarations
       const result: Json = {};
-      Object.entries(target).forEach(([key, value]) => {
-        if (typeof key === "symbol") return;
+      await Promise.all(
+        Object.entries(target).map(async ([key, value]) => {
+          if (typeof key === "symbol") return;
 
-        const parsed = toJSON(
-          replacer != null ? replacer(key, value) : value,
-          replacer
-        );
-        if (parsed !== undefined) {
-          result[key] = parsed;
-        }
-      });
+          const parsed = await toJSON(
+            replacer != null ? await replacer(key, value) : value,
+            replacer
+          );
+          if (parsed !== undefined) {
+            result[key] = parsed;
+          }
+        })
+      );
 
       return result;
     default:

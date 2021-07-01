@@ -6,7 +6,7 @@ import toJSON from "./to-json";
 
 export type SerializeOptions = {
   serialize?: (value: unknown) => Json | Promise<Json>;
-  replacer?: (key: string, value: unknown) => unknown;
+  replacer?: (key: string, value: unknown) => unknown | Promise<Json>;
 };
 
 function createDefaultSerialize(
