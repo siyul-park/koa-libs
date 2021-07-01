@@ -27,6 +27,6 @@
   },
   "peerDependencies": {
     "koa": "^2.13.1",
-    "koa-position": "1.x"
+    "koa-position": "^1.1.8"
   }
 }

@@ -23,7 +23,7 @@
     "koa": "^2.13.1"
   },
   "peerDependencies": {
-    "cookies": "0.8.x",
-    "koa": "2.x"
+    "cookies": "^0.8.0",
+    "koa": "^2.13.1"
   }
 }
