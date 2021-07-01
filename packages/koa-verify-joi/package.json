@@ -21,6 +21,6 @@
   },
   "peerDependencies": {
     "joi": "^17.x",
-    "koa-verify": "^1.x"
+    "koa-verify": "^1.0.2"
   }
 }
