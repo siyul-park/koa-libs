@@ -9,14 +9,19 @@ export type SerializeOptions = {
   replacer?: (key: string, value: unknown) => unknown;
 };
 
+function createDefaultSerialize(
+  options?: SerializeOptions
+): Required<SerializeOptions>["serialize"] {
+  return options?.replacer != null
+    ? (value: unknown) => toJSON(value, options?.replacer)
+    : toJSON;
+}
+
 function serialize(
   position: Position,
   options?: SerializeOptions
 ): Application.Middleware {
-  const finalSerialize =
-    options?.serialize ?? options?.replacer != null
-      ? (value: unknown) => toJSON(value, options?.replacer)
-      : toJSON;
+  const finalSerialize = options?.serialize ?? createDefaultSerialize(options);
   return async (context, next) => {
     const value = await position.extract(context);
     await position.inject(context, await finalSerialize(value));
