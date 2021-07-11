@@ -8,13 +8,13 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build:prd": "cross-env NODE_ENV=production npm run build",
-    "build": "npm run clean && npm run compile",
+    "build": "gulp",
+    "build:watch": "gulp watch",
     "clean": "rm -rf ./dist",
     "compile": "gulp",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "prepublishOnly": "npm run build:prd"
+    "prepublishOnly": "cross-env NODE_ENV=production npm run build"
   },
   "dependencies": {
     "http-errors": "^1.8.0"
