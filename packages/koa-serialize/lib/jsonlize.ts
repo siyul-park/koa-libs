@@ -4,7 +4,7 @@ import { Serializable } from "jsonlike";
 /*
  https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify 참고
  */
-function toJSON<T>(
+function jsonlize<T>(
   target: T,
   replacer?: (key: string, value: unknown) => unknown
 ): Json {
@@ -30,7 +30,7 @@ function toJSON<T>(
         return null;
       }
       if (Array.isArray(target)) {
-        return target.map((element) => toJSON(element, replacer) ?? null);
+        return target.map((element) => jsonlize(element, replacer) ?? null);
       }
 
       // eslint-disable-next-line no-case-declarations
@@ -38,7 +38,7 @@ function toJSON<T>(
       Object.entries(target).forEach(([key, value]) => {
         if (typeof key === "symbol") return;
 
-        const parsed = toJSON(
+        const parsed = jsonlize(
           replacer != null ? replacer(key, value) : value,
           replacer
         );
@@ -53,4 +53,4 @@ function toJSON<T>(
   }
 }
 
-export default toJSON;
+export default jsonlize;
