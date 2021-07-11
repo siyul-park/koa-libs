@@ -1,14 +1,16 @@
-import { DefaultState, Request } from "koa";
+import { Request } from "koa";
 import Position from "./position";
 import DefaultPosition from "./default-position";
 
-function request<T = unknown>(
-  key?: keyof (T & Request)
-): Position<unknown, unknown, DefaultState, { request: T & Request }> {
+function request<Key extends keyof Request>(
+  key: Key
+): Position<Request[Key], Request[Key]>;
+function request(key?: undefined): Position<Request, Request>;
+function request(key?: keyof Request): Position<unknown, unknown> {
   return new DefaultPosition({
     inject: (ctx, value): void => {
       if (key !== undefined) {
-        ctx.request[key] = value as (Request & T)[keyof (T & Request)];
+        ctx.request[key] = value as never;
       }
     },
     extract: (ctx): unknown => {
