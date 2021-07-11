@@ -1,10 +1,14 @@
-import { DefaultState, Response } from "koa";
+import { Response } from "koa";
 import Position from "./position";
 import DefaultPosition from "./default-position";
 
-function response<T = unknown>(
-  key?: keyof (T & Response)
-): Position<unknown, unknown, DefaultState, { response: T & Response }> {
+function response<Key extends keyof Response>(
+  key: Key
+): Position<Response[Key], Response[Key]>;
+function response(key?: undefined): Position<Response, Response>;
+function response<Key extends keyof Response>(
+  key?: Key
+): Position<unknown, unknown> {
   return new DefaultPosition({
     inject: (ctx, value): void => {
       if (key !== undefined) {

@@ -3,6 +3,14 @@ import Position from "./position";
 import DefaultPosition from "./default-position";
 
 function cookies(
+  key?: undefined,
+  options?: { get?: Cookies.GetOption; set?: Cookies.SetOption }
+): Position<never, Cookies>;
+function cookies(
+  key: string,
+  options?: { get?: Cookies.GetOption; set?: Cookies.SetOption }
+): Position<string, string>;
+function cookies(
   key?: string,
   options?: { get?: Cookies.GetOption; set?: Cookies.SetOption }
 ): Position<unknown, unknown> {

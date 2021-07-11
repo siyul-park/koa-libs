@@ -2,15 +2,36 @@ import { DefaultState } from "koa";
 import Position from "./position";
 import DefaultPosition from "./default-position";
 
-function params<CustomT = Record<string, string>>(
-  key?: keyof CustomT
-): Position<unknown, unknown, DefaultState, { params: CustomT }> {
+function params(
+  key?: undefined
+): Position<
+  Record<string, unknown>,
+  Record<string, unknown>,
+  DefaultState,
+  { params: Record<string, unknown> }
+>;
+function params(
+  key: string
+): Position<
+  unknown,
+  unknown,
+  DefaultState,
+  { params: Record<string, unknown> }
+>;
+function params(
+  key?: string
+): Position<
+  unknown,
+  unknown,
+  DefaultState,
+  { params: Record<string, unknown> }
+> {
   return new DefaultPosition({
     inject: (ctx, value): void => {
       if (key !== undefined) {
         ctx.params[key] = value as never;
       } else {
-        ctx.params = value as CustomT;
+        ctx.params = value as never;
       }
     },
     extract: (ctx) => {
