@@ -11,7 +11,7 @@ async function toJSON<T>(
   if (
     typeof (target as Partial<Serializable> | Nullish)?.toJSON === "function"
   ) {
-    return ((target as unknown) as Serializable).toJSON();
+    return (target as unknown as Serializable).toJSON();
   }
 
   switch (typeof target) {

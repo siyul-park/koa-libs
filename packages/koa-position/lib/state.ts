@@ -2,7 +2,9 @@ import { DefaultState } from "koa";
 import Position from "./position";
 import DefaultPosition from "./default-position";
 
-function state<StateT = DefaultState>(key: keyof StateT): Position<StateT> {
+function state<StateT = DefaultState>(
+  key: keyof StateT
+): Position<unknown, unknown, StateT> {
   return new DefaultPosition({
     inject: (ctx, value: StateT[keyof StateT]): void => {
       ctx.state[key] = value;

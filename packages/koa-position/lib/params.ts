@@ -4,7 +4,7 @@ import DefaultPosition from "./default-position";
 
 function params<CustomT = Record<string, string>>(
   key?: keyof CustomT
-): Position<DefaultState, { params: CustomT }> {
+): Position<unknown, unknown, DefaultState, { params: CustomT }> {
   return new DefaultPosition({
     inject: (ctx, value): void => {
       if (key !== undefined) {

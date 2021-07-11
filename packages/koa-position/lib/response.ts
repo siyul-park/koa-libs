@@ -4,14 +4,14 @@ import DefaultPosition from "./default-position";
 
 function response<T = unknown>(
   key?: keyof (T & Response)
-): Position<DefaultState, { response: T & Response }> {
+): Position<unknown, unknown, DefaultState, { response: T & Response }> {
   return new DefaultPosition({
     inject: (ctx, value): void => {
       if (key !== undefined) {
         ctx.response[key] = value as never;
       }
     },
-    extract: (ctx) => {
+    extract: (ctx): unknown => {
       if (key !== undefined) {
         return ctx.response[key];
       }

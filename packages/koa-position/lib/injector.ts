@@ -1,9 +1,13 @@
 import Application, { DefaultContext, DefaultState } from "koa";
 
-interface Injector<StateT = DefaultState, CustomT = DefaultContext> {
+interface Injector<
+  T = unknown,
+  StateT = DefaultState,
+  CustomT = DefaultContext
+> {
   inject(
     ctx: Application.ParameterizedContext<StateT, CustomT>,
-    value: unknown
+    value: T
   ): void | Promise<void>;
 }
 

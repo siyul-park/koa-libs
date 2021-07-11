@@ -1,9 +1,13 @@
 import Application, { DefaultContext, DefaultState } from "koa";
 
-interface Extractor<StateT = DefaultState, CustomT = DefaultContext> {
+interface Extractor<
+  T = unknown,
+  StateT = DefaultState,
+  CustomT = DefaultContext
+> {
   extract(
     ctx: Application.ParameterizedContext<StateT, CustomT>
-  ): unknown | Promise<unknown>;
+  ): T | Promise<T>;
 }
 
 export default Extractor;

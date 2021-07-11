@@ -1,23 +1,30 @@
 import Application, { DefaultContext, DefaultState } from "koa";
 import Position from "./position";
 
-class DefaultPosition<StateT = DefaultState, CustomT = DefaultContext>
-  implements Position<StateT, CustomT> {
-  constructor(private readonly position: Position<StateT, CustomT>) {}
+class DefaultPosition<
+  InT = unknown,
+  OutT = unknown,
+  StateT = DefaultState,
+  CustomT = DefaultContext
+> implements Position<InT, OutT, StateT, CustomT>
+{
+  constructor(
+    private readonly position: Position<InT, OutT, StateT, CustomT>
+  ) {}
 
   extract(
     ctx: Application.ParameterizedContext<StateT, CustomT>
-  ): unknown | Promise<unknown> {
+  ): OutT | Promise<OutT> {
     return this.position.extract(ctx);
   }
 
-  inject(
+  async inject(
     ctx: Application.ParameterizedContext<StateT, CustomT>,
-    value: unknown
-  ): void | Promise<void> {
-    const existed = this.position.extract(ctx);
-    if (existed !== value) {
-      this.position.inject(ctx, value);
+    value: InT
+  ): Promise<void> {
+    const existed = await this.position.extract(ctx);
+    if ((existed as unknown) !== (value as unknown)) {
+      await this.position.inject(ctx, value);
     }
   }
 }

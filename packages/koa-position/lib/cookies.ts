@@ -5,7 +5,7 @@ import DefaultPosition from "./default-position";
 function cookies(
   key?: string,
   options?: { get?: Cookies.GetOption; set?: Cookies.SetOption }
-): Position {
+): Position<unknown, unknown> {
   return new DefaultPosition({
     inject: (ctx, value?: string | null): void => {
       if (key !== undefined) {
