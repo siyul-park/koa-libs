@@ -12,7 +12,7 @@ export type ExposeOptions<T> = {
 };
 
 function expose<T>(
-  extractor: Extractor<string | string[]>,
+  extractor: Extractor<string | string[] | undefined>,
   options?: ExposeOptions<T>
 ): Application.Middleware {
   const finalPick = options?.pick ?? pick;
