@@ -2,9 +2,7 @@ import { DefaultState } from "koa";
 import Position from "./position";
 import DefaultPosition from "./default-position";
 
-function params(
-  key?: undefined
-): Position<
+function params(): Position<
   Record<string, unknown>,
   Record<string, unknown>,
   DefaultState,

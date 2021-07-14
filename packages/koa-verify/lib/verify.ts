@@ -1,20 +1,26 @@
-import Application from "koa";
-import { Position } from "koa-position";
-import { BadRequest } from "http-errors";
+import Application, {
+  DefaultContext,
+  DefaultState,
+  ParameterizedContext,
+} from "koa";
+import { Extractor } from "koa-position";
 
-function verify<T>(
-  position: Position,
-  validate: (value: T) => void | Promise<void>
-): Application.Middleware {
+function verify<T, StateT = DefaultState, ContextT = DefaultContext>(
+  extractor: Extractor<T>,
+  validate: (
+    value: T,
+    context: ParameterizedContext<StateT, ContextT>
+  ) => void | Promise<void>
+): Application.Middleware<StateT, ContextT> {
   return async (context, next) => {
-    const value = await position.extract(context);
+    const value = await extractor.extract(context);
     try {
-      await validate(value as T);
+      await validate(value, context);
     } catch (e) {
       if (typeof e.status === "number" || typeof e.statusCode === "number") {
         throw e;
       }
-      throw new BadRequest(e.message);
+      context.throw(400, e.message);
     }
 
     await next();

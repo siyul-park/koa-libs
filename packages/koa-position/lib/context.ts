@@ -11,9 +11,7 @@ function context<
   ParameterizedContext<DefaultState, CustomT>[Key],
   ParameterizedContext<DefaultState, CustomT>[Key]
 >;
-function context<CustomT>(
-  key?: undefined
-): Position<
+function context<CustomT>(): Position<
   ParameterizedContext<DefaultState, CustomT>,
   ParameterizedContext<DefaultState, CustomT>
 >;

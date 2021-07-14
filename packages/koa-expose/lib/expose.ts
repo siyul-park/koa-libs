@@ -4,8 +4,6 @@ import { DeepPartial } from "@course-design/types";
 
 import pick from "./pick";
 
-const bodyPosition = response("body");
-
 export type ExposeOptions<T> = {
   pick?: (
     value: T,
@@ -14,25 +12,29 @@ export type ExposeOptions<T> = {
 };
 
 function expose<T>(
-  extractor: Extractor,
+  extractor: Extractor<string | string[]>,
   options?: ExposeOptions<T>
 ): Application.Middleware {
   const finalPick = options?.pick ?? pick;
+  const bodyPosition = response<
+    { body: T | T[] | DeepPartial<T> | DeepPartial<T>[] },
+    "body"
+  >("body");
 
   return async (context, next) => {
     const field = await extractor.extract(context);
     if (field != null) {
       const fields = Array.isArray(field) ? field : [field];
-      const originBody = await bodyPosition.extract(context);
+      const originBody = (await bodyPosition.extract(context)) as T | T[];
 
-      let result: unknown = originBody;
+      let result = originBody as T | T[] | DeepPartial<T> | DeepPartial<T>[];
       if (originBody != null) {
         if (Array.isArray(originBody)) {
           result = await Promise.all(
-            originBody.map((value) => finalPick(value as T, fields))
+            originBody.map((value) => finalPick(value, fields))
           );
         } else {
-          result = await finalPick(originBody as T, fields);
+          result = await finalPick(originBody, fields);
         }
       }
 
