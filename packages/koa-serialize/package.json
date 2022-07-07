@@ -7,14 +7,14 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest",
     "build": "gulp",
     "build:watch": "gulp watch",
     "clean": "rm -rf ./dist",
     "compile": "gulp",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "prepublishOnly": "cross-env NODE_ENV=production npm run build"
+    "prepublishOnly": "cross-env NODE_ENV=production npm run build",
+    "test": "jest"
   },
   "dependencies": {
     "@course-design/types": "^1.1.3",

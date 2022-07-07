@@ -1,17 +1,17 @@
-import { DeepPartial } from "@course-design/types";
+import { DeepPartial } from '@course-design/types';
 
 function pick<T>(value: T, keys: string[]): DeepPartial<T> {
   const result = {};
 
   keys.forEach((key) => {
-    const paths = key.split(".");
+    const paths = key.split('.');
 
     let currentInput: unknown = value;
     let currentResult: Record<string, unknown> = result;
     // eslint-disable-next-line no-restricted-syntax
     for (const [i, path] of paths.entries()) {
       if (
-        typeof currentInput !== "object" ||
+        typeof currentInput !== 'object' ||
         currentInput == null ||
         !(path in currentInput)
       )

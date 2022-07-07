@@ -1,6 +1,6 @@
-import { ParsedUrlQuery } from "querystring";
-import Position from "./position";
-import DefaultPosition from "./default-position";
+import { ParsedUrlQuery } from 'querystring';
+import Position from './position';
+import DefaultPosition from './default-position';
 
 function query(): Position<ParsedUrlQuery, ParsedUrlQuery>;
 function query<Key extends keyof ParsedUrlQuery>(

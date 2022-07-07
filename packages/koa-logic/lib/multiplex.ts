@@ -1,10 +1,10 @@
-import { DefaultContext, DefaultState, Middleware } from "koa";
-import Expression from "./expression";
+import { DefaultContext, DefaultState, Middleware } from 'koa';
+import Expression from './expression';
 
 export type Matcher<ResultT> = (result: ResultT) => boolean | Promise<boolean>;
 function multiplex<ResultT, StateT = DefaultState, ContextT = DefaultContext>(
   expression: Expression<ResultT, StateT, ContextT>,
-  middlewares: [Matcher<ResultT>, Middleware<StateT, ContextT>][]
+  middlewares: [Matcher<ResultT>, Middleware<StateT, ContextT>][],
 ): Middleware<StateT, ContextT> {
   return async (context, next) => {
     const value = await expression(context);

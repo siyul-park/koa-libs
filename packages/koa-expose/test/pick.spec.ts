@@ -1,6 +1,6 @@
-import pick from "../lib/pick";
+import pick from '../lib/pick';
 
-test("pick", () => {
+test('pick', () => {
   const obj = {
     a: {
       b: {
@@ -25,7 +25,7 @@ test("pick", () => {
     h: 1,
   };
 
-  expect(pick(obj, ["a.b.c", "e.0.e"])).toEqual({
+  expect(pick(obj, ['a.b.c', 'e.0.e'])).toEqual({
     a: {
       b: {
         c: 10,
@@ -38,7 +38,7 @@ test("pick", () => {
     ],
   });
 
-  expect(pick(obj, ["d", "e"])).toEqual({
+  expect(pick(obj, ['d', 'e'])).toEqual({
     e: [
       {
         f: {
@@ -55,9 +55,9 @@ test("pick", () => {
     ],
   });
 
-  expect(pick(obj, ["a.e"])).toEqual({ a: {} });
+  expect(pick(obj, ['a.e'])).toEqual({ a: {} });
 
-  expect(pick(obj, ["a", "a.b.c"])).toEqual({
+  expect(pick(obj, ['a', 'a.b.c'])).toEqual({
     a: {
       b: {
         c: 10,
@@ -66,7 +66,7 @@ test("pick", () => {
     },
   });
 
-  expect(pick(obj, ["a.b.c", "a"])).toEqual({
+  expect(pick(obj, ['a.b.c', 'a'])).toEqual({
     a: {
       b: {
         c: 10,

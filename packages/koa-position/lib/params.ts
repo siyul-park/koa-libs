@@ -1,29 +1,29 @@
-import { DefaultState } from "koa";
-import Position from "./position";
-import DefaultPosition from "./default-position";
+import { DefaultState } from 'koa';
+import Position from './position';
+import DefaultPosition from './default-position';
 
 function params(): Position<
-  Record<string, unknown>,
-  Record<string, unknown>,
-  DefaultState,
-  { params: Record<string, unknown> }
+Record<string, unknown>,
+Record<string, unknown>,
+DefaultState,
+{ params: Record<string, unknown> }
 >;
 function params(
   key: string
 ): Position<
-  unknown,
-  unknown,
-  DefaultState,
-  { params: Record<string, unknown> }
+unknown,
+unknown,
+DefaultState,
+{ params: Record<string, unknown> }
 >;
 function params(
-  key?: string
+  key?: string,
 ): Position<
   unknown,
   unknown,
   DefaultState,
   { params: Record<string, unknown> }
-> {
+  > {
   return new DefaultPosition({
     inject: (ctx, value): void => {
       if (key !== undefined) {

@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14]
+        node-version: [16]
 
     steps:
       - name: Checkout source code
@@ -28,8 +28,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Update npm
-        run: npm i npm -g
       - name: Cache node modules
         uses: actions/cache@v2
         env:

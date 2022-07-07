@@ -1,7 +1,7 @@
-import { DefaultContext, DefaultState, Middleware } from "koa";
+import { DefaultContext, DefaultState, Middleware } from 'koa';
 
 function finalize<StateT = DefaultState, ContextT = DefaultContext>(
-  middleware: Middleware<StateT, ContextT>
+  middleware: Middleware<StateT, ContextT>,
 ): Middleware<StateT, ContextT> {
   return async (context, next) => {
     try {

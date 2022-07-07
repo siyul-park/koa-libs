@@ -1,8 +1,8 @@
-import Application from "koa";
-import { Extractor, response } from "koa-position";
-import { DeepPartial } from "@course-design/types";
+import Application from 'koa';
+import { Extractor, response } from 'koa-position';
+import { DeepPartial } from '@course-design/types';
 
-import pick from "./pick";
+import pick from './pick';
 
 export type ExposeOptions<T> = {
   pick?: (
@@ -13,13 +13,13 @@ export type ExposeOptions<T> = {
 
 function expose<T>(
   extractor: Extractor<string | string[]>,
-  options?: ExposeOptions<T>
+  options?: ExposeOptions<T>,
 ): Application.Middleware {
   const finalPick = options?.pick ?? pick;
   const bodyPosition = response<
-    { body: T | T[] | DeepPartial<T> | DeepPartial<T>[] },
-    "body"
-  >("body");
+  { body: T | T[] | DeepPartial<T> | DeepPartial<T>[] },
+  'body'
+  >('body');
 
   return async (context, next) => {
     const field = await extractor.extract(context);
@@ -31,7 +31,7 @@ function expose<T>(
       if (originBody != null) {
         if (Array.isArray(originBody)) {
           result = await Promise.all(
-            originBody.map((value) => finalPick(value, fields))
+            originBody.map((value) => finalPick(value, fields)),
           );
         } else {
           result = await finalPick(originBody, fields);

@@ -1,23 +1,23 @@
-import { DefaultState, Request } from "koa";
-import Position from "./position";
-import DefaultPosition from "./default-position";
+import { DefaultState, Request } from 'koa';
+import Position from './position';
+import DefaultPosition from './default-position';
 
 function request<RequestT, Key extends keyof (Request & RequestT)>(
   key: Key
 ): Position<
-  (Request & RequestT)[Key],
-  (Request & RequestT)[Key],
-  DefaultState,
-  { request: RequestT }
+(Request & RequestT)[Key],
+(Request & RequestT)[Key],
+DefaultState,
+{ request: RequestT }
 >;
 function request<RequestT>(): Position<
-  Request & RequestT,
-  Request & RequestT,
-  DefaultState,
-  { request: RequestT }
+Request & RequestT,
+Request & RequestT,
+DefaultState,
+{ request: RequestT }
 >;
 function request<RequestT, Key extends keyof (Request & RequestT)>(
-  key?: Key
+  key?: Key,
 ): Position<unknown, unknown, DefaultState, { request: RequestT }> {
   return new DefaultPosition({
     inject: (ctx, value): void => {
