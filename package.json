@@ -42,7 +42,7 @@
     "husky": "^8.0.1",
     "jest": "^28.1.1",
     "lerna": "^4.0.0",
-    "lerna-update-wizard": "^0.17.8",
+    "lerna-update-wizard": "1.1.2",
     "nx": "14.3.6",
     "pinst": "^3.0.0",
     "prettier": "^2.3.2",
